@@ -117,6 +117,46 @@ width:4rem;
 height:3rem;
 }
 
+/* styles for the card */
+#inv-display {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#inv-display li {
+  width: calc(33.33% - 20px); 
+  margin: 10px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden; 
+}
+
+#inv-display li img {
+  width: 100%; 
+  height: auto;
+}
+
+#inv-display li .namePrice {
+  padding: 20px;
+  text-align: center;
+}
+
+#inv-display li h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+#inv-display li span {
+  color: black;
+  font-weight: bold;
+}
+
+
+
 
 @media screen and (min-width: 768px){
   html {
