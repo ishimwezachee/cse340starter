@@ -128,7 +128,7 @@ height:3rem;
 }
 
 #inv-display li {
-  width: calc(33.33% - 20px); 
+  width: calc(30% - 20px); 
   margin: 10px; 
   border: 1px solid #ccc;
   border-radius: 5px;
