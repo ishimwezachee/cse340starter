@@ -28,7 +28,6 @@ invCont.buildItemDetail = async function (req, res, next) {
     const itemId = req.params.itemId;
     let nav = await utilities.getNav()
     const itemDetail = await invModel.getItemDetail(itemId);
-    console.log(itemDetail)
     const detail = await utilities.getDetailsHTML(itemDetail);
     const name = itemDetail.inv_make
     res.render('./inventory/detail',{
@@ -40,6 +39,7 @@ invCont.buildItemDetail = async function (req, res, next) {
     next(error); 
   }
 };
+
 
 
 module.exports = invCont

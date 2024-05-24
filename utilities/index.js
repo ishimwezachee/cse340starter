@@ -60,6 +60,20 @@ Util.buildClassificationGrid = async function(data){
 }
 
 /* **************************************
+* Catch the errors 
+* ************************************ */
+Util.handleErrors = function (fn) {
+  return async (req, res, next) => {
+    try {
+      await fn(req, res, next);
+    } catch (err) {
+      console.log(err)
+      next(err);
+    }
+  };
+}
+
+/* **************************************
  * Build HTML markup for displaying vehicle details
  * ************************************ */
 Util.getDetailsHTML = function(vehicle) {
@@ -126,6 +140,7 @@ Util.getDetailsHTML = function(vehicle) {
   detailsHTML += "</div>";
   return detailsHTML;
 };
+
 
 
 module.exports = Util
