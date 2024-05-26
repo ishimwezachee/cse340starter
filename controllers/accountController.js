@@ -10,7 +10,7 @@ async function buildLogin(req, res, next) {
       title: "Login",
       nav,
     })
-     req.flash("notice", "This is a flash message.")
+    //  req.flash("notice", "This is a flash message.")
   }
 
   /* ****************************************
@@ -21,6 +21,7 @@ async function buildRegister(req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
+    errors:null,
   })
 }
 
@@ -31,7 +32,6 @@ async function buildRegister(req, res, next) {
 async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
-
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,

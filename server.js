@@ -12,6 +12,7 @@ const app = express()
 const baseController = require("./controllers/baseController")
 const utilities = require('./utilities')
 const inventoryRoute = require("./routes/inventoryRoute");
+const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const pool = require('./database/');
@@ -33,7 +34,8 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) 
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
@@ -46,8 +48,7 @@ app.use(function(req, res, next){
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) 
+
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
@@ -56,9 +57,9 @@ app.use("/inv", inventoryRoute)
  * Routes
  *************************/
 app.use(require("./routes/static"))
-// account routes 
-app.use("/account",require("./routes/accountRoute"));
 app.get("/",baseController.buildHome)
+// app.use("/account",require("./routes/accountRoute"));
+app.use("/account",accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
