@@ -41,6 +41,19 @@ async function getItemDetail(itemId) {
   }
 }
 
+/* *****************************
+*   Register new classification 
+* *************************** */
+async function registerClassification(classification_name){
+  try {
+    const sql = "INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *"
+    const result = await pool.query(sql, [classification_name])
+    return result.rows[0];
+  } catch (error) {
+    console.error("registerClassification error " + error);
+    throw error;
+  }
+}
 
-
-module.exports = {getClassifications,getInventoryByClassificationId,getItemDetail}
+module.exports = {getClassifications, getInventoryByClassificationId, getItemDetail, registerClassification}
+  

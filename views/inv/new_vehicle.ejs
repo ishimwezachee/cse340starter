@@ -1,0 +1,14 @@
+<h1><%= title %></h1>
+<div class="form_div">
+    <form class="login-form">
+      <label for="email">Email:</label>
+      <input type="email" class="email" name="email" required>
+      <label for="password">Password:</label>
+      <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+      <input type="password" name="account_password" class="password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+      <button type="submit">Login</button>
+    </form>
+    <p class="signUp">No account? <a href="/account/register">Sign up</a></p>
+</div>
+
+

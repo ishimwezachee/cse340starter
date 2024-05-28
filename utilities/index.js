@@ -72,6 +72,7 @@ Util.handleErrors = function (fn) {
     }
   };
 }
+// Util. use = fn => (req,res,next)=> Promise.resolve(fn(req,res,next)).catch(next);
 
 /* **************************************
  * Build HTML markup for displaying vehicle details
