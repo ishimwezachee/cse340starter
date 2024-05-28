@@ -18,4 +18,6 @@ router.post(
     classValidation.checkAddClassData,
     utilities.handleErrors(invController.createClassification)
 );
+
+router.post("/new_vehicle",invController.createVehicle)
 module.exports = router;

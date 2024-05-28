@@ -262,8 +262,8 @@ height:3rem;
 }
 
 .button {
-  background-color: green;
-  color: white;
+  background-color: #ccc;
+  color:#2c6faa;
   padding: 10px 30px;
   text-decoration: none;
   border-radius: 4px;
@@ -352,6 +352,101 @@ height:3rem;
     margin-bottom: 5px;
   }
 }
+
+/* Vehicle form*/
+
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color:#2c6faa;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  color:white;
+}
+
+i {
+  display: block;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.vehicle-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-form label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color:white;
+}
+
+.vehicle-form input,
+.vehicle-form select,
+.vehicle-form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.vehicle-form input[type="text"],
+.vehicle-form input[type="number"],
+.vehicle-form textarea {
+  margin-bottom: 15px;
+}
+
+.vehicle-form button {
+  padding: 10px 15px;
+  background-color: #ccc;
+  color:#2c6faa;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .form-container {
+      padding: 15px;
+      margin: 20px;
+  }
+
+  h1 {
+      font-size: 1.5em;
+  }
+
+  .vehicle-form label {
+      font-size: 1em;
+  }
+
+  .vehicle-form input,
+  .vehicle-form select,
+  .vehicle-form textarea,
+  .vehicle-form button {
+      font-size: 14px;
+      padding: 8px;
+  }
+
+  .vehicle-form button {
+      font-size: 15px;
+      padding: 10px 12px;
+  }
+}
+
 
 
 

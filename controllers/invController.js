@@ -59,6 +59,7 @@ invCont.newVehicle = async function (req, res, next) {
   res.render("inv/new_vehicle", {
     title: "Add new vehicle",
     nav,
+    errors:null,
   })
 }
 
@@ -75,14 +76,55 @@ invCont.newClassification = async function (req, res, next) {
 }
 
 /* ****************************************
-*  Process classification creation 
+*  Add Vehicle  
+* *************************************** */
+invCont.createVehicle = async function(req, res) {
+  let nav = await utilities.getNav();
+  const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body;
+    const result = await invModel.addNewVehicle(
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color
+    );
+
+  console.log(result)
+
+  if (result) {
+    req.flash(
+      "notice",
+      `Vehicle ${inv_make} ${inv_model} added successfully.`
+    );
+    res.status(201).render("inv/new_vehicle", {
+      title: "Manage Inventory",
+      nav,
+      errors:null,
+    });
+  } else {
+    req.flash("notice", "Sorry, the addition of the vehicle failed.");
+    res.status(500).render("inv/new_vehicle", {
+      title: "Add Vehicle",
+      nav,
+    });
+  }
+};
+
+
+/* ****************************************
+*  Add classification  
 * *************************************** */
 invCont.createClassification = async function (req, res) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
 
-  const regResult = await invModel.registerClassification(classification_name);
-  if (regResult) {
+  const result = await invModel.addClassification(classification_name);
+  if (result) {
     req.flash(
       "notice",
       `Classification '${classification_name}' has been successfully created.`
@@ -93,7 +135,7 @@ invCont.createClassification = async function (req, res) {
     })
   } else {
     req.flash("notice", "Sorry, the classification creation failed.");
-    res.status(501).render("inv", {
+    res.status(501).render("inv/new_class", {
       title: "Vehicle Management",
       nav,
     })
