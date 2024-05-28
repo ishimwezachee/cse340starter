@@ -70,6 +70,7 @@ invCont.newClassification = async function (req, res, next) {
   res.render("inv/new_class", {
     title: "Add New Classification",
     nav,
+    errors:null,
   })
 }
 
@@ -79,7 +80,6 @@ invCont.newClassification = async function (req, res, next) {
 invCont.createClassification = async function (req, res) {
   let nav = await utilities.getNav();
   const { classification_name } = req.body;
-  console.log("this is classsification name : ",classification_name)
 
   const regResult = await invModel.registerClassification(classification_name);
   if (regResult) {
@@ -94,9 +94,9 @@ invCont.createClassification = async function (req, res) {
   } else {
     req.flash("notice", "Sorry, the classification creation failed.");
     res.status(501).render("inv", {
-      title: "Create Classification",
+      title: "Vehicle Management",
       nav,
-    });
+    })
   }
 };
 

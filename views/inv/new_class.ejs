@@ -1,9 +1,16 @@
 <h1><%= title %></h1>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
 <div class="form_div">
     <form action="/inv/new_class" method = "POST" class="login-form">
       <label for="first-name">Classification Name</label>
      <p>NAME MUST BE ALPHABETIC CHARACTERS ONLY.</p>
-      <input type="text" class="email" name="classification_name" required>
+      <input type="text" class="email" name="classification_name" pattern="^[A-Za-z]+$" required  >
       <button type="submit">Add Classification</button>
     </form>
 </div>
