@@ -84,14 +84,16 @@ invCont.createVehicle = async function(req, res) {
   let nav = await utilities.getNav();
   const classificationListHTML = await utilities.buildClassificationList();
   const { classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body;
-    const result = await invModel.addNewVehicle(
+  const invImage = utilities.decodeHTML(inv_image);
+  const invThumbnail = utilities.decodeHTML(inv_thumbnail);
+  const result = await invModel.addNewVehicle(
       classification_id,
       inv_make,
       inv_model,
       inv_year,
       inv_description,
-      inv_image,
-      inv_thumbnail,
+      invImage,
+      invThumbnail,
       inv_price,
       inv_miles,
       inv_color

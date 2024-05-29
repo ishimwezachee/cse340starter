@@ -25,6 +25,27 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
+Util.decodeHTML = function (text) {
+  const entities = {
+    '&#x2F;': '/',
+    '&#x27;': "'",
+    '&#x22;': '"',
+    '&#x3C;': '<',
+    '&#x3E;': '>',
+    '&#x26;': '&',
+  };
+
+  return text.replace(/&#(\w+);/g, function (match, dec) {
+    if (entities.hasOwnProperty(match)) {
+      return entities[match];
+    } else {
+      return String.fromCharCode(parseInt(dec, 10));
+    }
+  });
+};
+
+
+
 
 /* **************************************
 * Build the classification view HTML
