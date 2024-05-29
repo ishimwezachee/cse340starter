@@ -11,12 +11,7 @@
   <i>ALL FIELDS ARE REQUIRED</i>
   <form class="vehicle-form" action="/inv/new_vehicle" method = "POST" >
       <label for="classification">Choose a Classification:</label>
-      <select id="classification_select" name="classification_id">
-        <option value="1">Volvo</option>
-        <option value="2">Saab</option>
-        <option value="3">Fiat</option>
-        <option value="4">Audi</option>
-      </select>
+      <%- classificationListHTML %>
       <label for="make">Make</label>
       <input id="make" type="text" name ="inv_make" placeholder="Min of 3 characters" >
 
