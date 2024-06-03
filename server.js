@@ -14,6 +14,7 @@ const utilities = require('./utilities')
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 const session = require("express-session");
 const pool = require('./database/');
 
@@ -36,8 +37,8 @@ app.use(session({
 }))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) 
+app.use(cookieParser())
 // Express Messages Middleware
-app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
@@ -48,7 +49,8 @@ app.use(function(req, res, next){
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") 
-
+app.use(require('connect-flash')())
+app.use(utilities.checkJWTToken)
 
 // Inventory routes
 app.use("/inv", inventoryRoute)

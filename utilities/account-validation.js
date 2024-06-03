@@ -67,5 +67,9 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
+
+  validate.loginRules = () => {}
+
+  validate.checkLoginData = async (req, res, next) => {}
   
   module.exports = validate
