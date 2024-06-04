@@ -1,0 +1,46 @@
+<h1><%= title %></h1>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+<div class="form-container">
+  <i>ALL FIELDS ARE REQUIRED</i>
+  <form class="vehicle-form" action="/inv/edit" method="POST">
+    <label for="classification">Choose a Classification:</label>
+    <%- classificationSelect %>
+
+    <label for="make">Make</label>
+    <input id="make" type="text" name="inv_make" placeholder="Min of 3 characters" required minlength="3" value="<%= inv_make %>">
+
+    <label for="model">Model</label>
+    <input id="model" type="text" name="inv_model" placeholder="Min of 3 characters" required minlength="3" value="<%= inv_model %>">
+
+    <label for="description">Description</label>
+    <textarea id="description" name="inv_description" placeholder="Vehicle description" required><%= inv_description %></textarea>
+
+    <label for="path">Image Path</label>
+    <input type="text" id="path" name="inv_image" value="<%= inv_image %>" placeholder="Path to image" required>
+
+    <label for="thumbnails">Thumbnails Path</label>
+    <input type="text" id="thumbnails" name="inv_thumbnail" value="<%= inv_thumbnail %>" placeholder="Path to thumbnails" required>
+
+    <label for="price">Price</label>
+    <input type="number" name="inv_price" id="price" placeholder="Decimal or integer" required min="0" step="0.01" value="<%= inv_price %>">
+
+    <label for="year">Year</label>
+    <input type="number" name="inv_year" id="year" placeholder="4-digit year" required min="1886" value="<%= inv_year %>">
+
+    <label for="miles">Miles</label>
+    <input type="number" name="inv_miles" id="miles" placeholder="Digits only" required min="0" value="<%= inv_miles %>">
+
+    <label for="color">Color</label>
+    <input type="text" name="inv_color" id="color" placeholder="Vehicle color" required value="<%= inv_color %>">
+    <button type="submit">Update Vehicle</button>
+    <input type="hidden" name="inv_id"
+<% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+<% } %>>
+  </form>
+</div>
