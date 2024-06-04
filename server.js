@@ -60,10 +60,7 @@ app.use("/inv", inventoryRoute)
  *************************/
 app.use(require("./routes/static"))
 app.get("/",baseController.buildHome)
-// app.use("/account",require("./routes/accountRoute"));
 app.use("/account",accountRoute)
-
-// File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
@@ -76,9 +73,8 @@ const port = process.env.PORT
 const host = process.env.HOST
 
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Home' });
+  res.render('index', { title: 'Home', isLoggedIn: res.locals.isLoggedIn });
 });
-
 
 /* ***********************
 * Express Error Handler

@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accModel  = require("../models/account-model");
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -199,13 +200,16 @@ Util.checkJWTToken = (req, res, next) => {
      if (err) {
       req.flash("Please log in")
       res.clearCookie("jwt")
+      res.locals.isLoggedIn = false; // Set isLoggedIn to false
       return res.redirect("/account/login")
      }
      res.locals.accountData = accountData
      res.locals.loggedin = 1
+     res.locals.isLoggedIn = true; 
      next()
     })
   } else {
+    res.locals.isLoggedIn = false; // Set isLoggedIn to false
    next()
   }
  }
@@ -221,6 +225,40 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+
+/* ****************************************
+* Middleware to check token validity and account type
+**************************************** */
+Util.checkJWTAndAccountType = async (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      async function (err, accountData) {
+        if (err) {
+          req.flash("Please log in")
+          res.clearCookie("jwt")
+          res.locals.isLoggedIn = false; 
+          return res.redirect("/account/login")
+        }
+        const accountType = await accModel.getAccountType(accountData.account_id); // Assuming you have a function to retrieve the account type from the database
+        if (accountType !== "Employee" && accountType !== "Admin") {
+          req.flash("notice", "You do not have permission to access this resource.");
+          return res.redirect("/");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        res.locals.isLoggedIn = true;
+        next();
+      });
+  } else {
+    res.locals.isLoggedIn = false; 
+    next();
+  }
+}
+
+module.exports = Util;
 
 
 

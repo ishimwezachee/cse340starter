@@ -34,6 +34,7 @@ async function buildManagement (req, res, next) {
   res.render("account", {
     title: "Account Management",
     nav,
+    errors:null,
   })
 }
 
@@ -67,6 +68,7 @@ async function registerAccount(req, res) {
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
+      errors:null,
     })
   }
 }
@@ -78,7 +80,6 @@ async function registerAccount(req, res) {
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
-  console.log(account_email, account_password)
   const accountData = await accountModel.getAccountByEmail(account_email);
   console.log(accountData)
   if (!accountData) {

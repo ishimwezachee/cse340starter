@@ -27,5 +27,20 @@ async function getAccountByEmail (account_email) {
 }
 
 
-module.exports = {registerAccount,getAccountByEmail}
+/* *****************************
+* Return account type using account id
+* ***************************** */
+async function getAccountType(account_id) {
+  try {
+    const result = await pool.query(
+      'SELECT account_type FROM account WHERE account_id = $1',
+      [account_id]
+    );
+    return result.rows[0].account_type;
+  } catch (error) {
+    return new Error("Failed to retrieve account type");
+  }
+}
+
+module.exports = { registerAccount, getAccountByEmail, getAccountType };
 
