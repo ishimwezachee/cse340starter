@@ -73,7 +73,7 @@ const port = process.env.PORT
 const host = process.env.HOST
 
 app.get('/', (req, res) => {
-  res.render('index', { title: 'Home', isLoggedIn: res.locals.isLoggedIn });
+  res.render('index', { title: 'Home', isLoggedIn: res.locals.isLoggedIn,user_id:res.locals.account_id });
 });
 
 /* ***********************

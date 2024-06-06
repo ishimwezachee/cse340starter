@@ -4,6 +4,7 @@
   </span>
   <div id="tools">
     <% if (isLoggedIn) { %>
+      <a href="/account/profile/<%= user_id %>">My Profile</a>
       <a href="/account">Welcome Basic</a>
       <a href="/logout">Logout</a>
     <% } else { %>

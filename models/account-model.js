@@ -42,5 +42,21 @@ async function getAccountType(account_id) {
   }
 }
 
-module.exports = { registerAccount, getAccountByEmail, getAccountType };
+
+/* *****************************
+* Return user profile using account id
+* ***************************** */
+async function getUserProfile(account_id) {
+  try {
+    const result = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1',
+      [account_id]
+    );
+    return result.rows[0];
+  } catch (error) {
+    return new Error("Failed to retrieve user profile");
+  }
+}
+
+module.exports = { registerAccount, getAccountByEmail, getAccountType,getUserProfile };
 

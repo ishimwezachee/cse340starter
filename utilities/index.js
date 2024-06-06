@@ -9,7 +9,6 @@ const Util = {}
  ************************** */
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  console.log(data.rows)
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
@@ -193,26 +192,29 @@ Util.buildClassificationList = async function (classification_id = null) {
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-     if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      res.locals.isLoggedIn = false; // Set isLoggedIn to false
-      return res.redirect("/account/login")
-     }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
-     res.locals.isLoggedIn = true; 
-     next()
-    })
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          res.locals.isLoggedIn = false;
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        res.locals.isLoggedIn = true;
+        res.locals.user_id = accountData.account_id; 
+        next();
+      }
+    );
   } else {
-    res.locals.isLoggedIn = false; // Set isLoggedIn to false
-   next()
+    res.locals.isLoggedIn = false;
+    next();
   }
- }
+};
+
 
  /* ****************************************
  *  Check Login
@@ -258,8 +260,22 @@ Util.checkJWTAndAccountType = async (req, res, next) => {
   }
 }
 
+
+Util.profileView = function(profileData) {
+  let profileHtml = "<div class='profile-container'>";
+  profileHtml += "<div class='profile-info'>";
+  profileHtml += "<h3 class='profile-name'>" + profileData.account_firstname + " " + profileData.account_lastname + "</h3>";
+  profileHtml += "<p class='profile-email'><strong>Email:</strong> " + profileData.account_email + "</p>";
+  profileHtml += "<p class='profile-type'><strong>Account Type:</strong> " + profileData.account_type + "</p>";
+  profileHtml += "</div>";
+  profileHtml += "</div>";
+  return profileHtml;
+};
+
+
 module.exports = Util;
 
 
+module.exports = Util;
 
-module.exports = Util
+
